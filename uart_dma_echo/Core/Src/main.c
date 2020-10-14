@@ -104,13 +104,17 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  if(rx_flag){
+		  rx_flag = 0;
+		    HAL_UART_Transmit(&huart1, &UART1_rxBuffer, 1, 1000);
+	  }
   }
   /* USER CODE END 3 */
 }
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-    HAL_UART_Transmit(&huart1, &UART1_rxBuffer, 1, 1000);
+	rx_flag = 1;
     HAL_UART_Receive_DMA(&huart1, &UART1_rxBuffer, 1);
 }
 
